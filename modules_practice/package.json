@@ -1,0 +1,19 @@
+{
+  "name": "modules_practice",
+  "version": "1.0.0",
+  "description": "module to add subtract two numbers",
+  "main": "mathESM.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "subtract",
+    "add"
+  ],
+  "author": "Ibn_Misbah",
+  "license": "ISC",
+  "dependencies": {
+    "modules_practice": "file:"
+  }
+}
