@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Random color changing page</h1>
+    <p>click the button to stop the bg color from changing</p>
+    <button class="btn">Stop Change</button>
+
+    <script>
+      let page = document.body;
+      const btn = document.querySelector(".btn");
+      const h2 = document.createElement("h2");
+
+      const setRandomBackgroundColor = () => {
+        let red = Math.floor(Math.random() * 256);
+        let blue = Math.floor(Math.random() * 256);
+        let green = Math.floor(Math.random() * 256);
+
+        page.style.backgroundColor = `rgb(${red}, ${blue}, ${green})`;
+      };
+      const randomColor = setInterval(setRandomBackgroundColor, 2000);
+      btn.addEventListener("click", () => {
+        clearInterval(randomColor);
+        h2.innerText = "color change stoped!!"
+        page.appendChild(h2);
+      });
+    </script>
+  </body>
+</html>
