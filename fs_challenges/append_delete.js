@@ -3,7 +3,7 @@ import { cwd } from 'process';
 
 async function update () {
     try{
-        const message = '\nThis text is added later.'
+        const message = ' This text is added later.'
         await fs.writeFile('./message.txt', message, {flag :'a'})
         console.log('File updated successfully!');
     }catch(error){
