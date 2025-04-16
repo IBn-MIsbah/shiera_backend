@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Basic UI
+        link(rel="stylesheet", href="/style.css")
+    body 
+    div.container
+        header 
+            h1.intro Hello I'm #{name} 
+            span.profession #{profession}
+            br
+            span.age Age #{age}  
+        hr
+        h2.skills Skills
+        div.skill-list 
+            each item in skills
+                span.skill= item
