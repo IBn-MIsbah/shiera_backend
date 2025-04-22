@@ -3,7 +3,7 @@ import express from 'express';
 const app = express();
 const port = 3000;
 
-app.use(express.static("./src/style"))
+app.use(express.static("./src"))
 app.set("view engine", "pug");
 app.set("views", "./src/views");
 
