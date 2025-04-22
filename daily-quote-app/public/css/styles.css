@@ -1,0 +1,63 @@
+* a {
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+  }
+  body {
+    display: flex;
+    width: 100%;
+    height: 100dvh;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(58deg, #333, #a99999, #293b3f);
+  }
+  .container {
+    width: 65%;
+    height: 45dvh;
+    background: linear-gradient(135deg, #666, #a7aaa7);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 15px 10px #eee;
+  }
+  .header{
+    text-align: center;
+    margin: 10px auto;
+    font-size: 50px;
+  }
+  .quote{
+    text-align: center;
+  }
+  .author{
+    text-align: right;
+  }
+  .btn-container{
+    display: flex;
+    gap:20px;
+    justify-content: center;
+    width: 100%;
+    margin: 15px auto;
+  }
+  .btn{
+    width: 100px;
+    height: 35px;
+    border-radius: 20px;
+    border-style: none;
+    background: linear-gradient(135deg, #666, #a7aaa7);
+    box-shadow: 0px 0px 20px #eee;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .notification {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #2ecc71;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.fa-copy {
+  cursor: pointer;
+}

@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz App</title>
-</head>
-<body>
-     
-        <h1>Quote of the day </h1>
-        <h4><%= quote %></h4>
-        <h6>BY: <%= author %></h6>
-</body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <div class="container">
+        <h1 class="header">Quote of the day</h1>
+        <h4 class="quote" id="quote-text"><%= quote %></h4>
+        <p class="author"><em>-- BY: <%= author %></em></p>
+        <hr />
+        <div class="btn-container">
+            <i class="fa-solid fa-copy fa-2x" id="copy-btn"></i>
+            <a href="https://www.facebook.com/home.php"><i class="fa-brands fa-facebook fa-2x"></i></a>
+            <a href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D"><i class="fa-brands fa-twitter fa-2x"></i></a>
+            <a href=""><i class="fa-brands fa-telegram fa-2x"></i></a>
+        </div>
+        <span class="notification" id="notification"> Quote copied to clipboard</span>
+        <button class="btn"><a href="/">New Quote</a></button>
+
+        <script>
+            const copyBtn = document.getElementById('copy-btn');
+            const quoteText = document.getElementById('quote-text');
+            const notification = document.getElementById('notification')
+
+            copyBtn.addEventListener('click', ()=>{
+                navigator.clipboard.writeText(quoteText.innerText)
+                .then(()=>{
+                  notification.style.display = 'inline';
+                  setTimeout(()=>{
+                    notification.style.display = 'none'
+                  }, 2000)  
+                })
+                .catch((err)=>{
+                    console.log('failed to copy:', err);
+                })
+            })
+        </script>
+    </div>
+  </body>
 </html>
