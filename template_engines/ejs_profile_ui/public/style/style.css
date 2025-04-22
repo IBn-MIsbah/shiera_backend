@@ -1,76 +1,88 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(45deg, #9c8c8c, #719a9c, #333399);
-    color: #2c3e50;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: row;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    max-width: 800px;
-    width: 100%;
-  }
-  
-  .profile {
-    flex: 1;
-    background-color: #e6f0fa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .profile-pic {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  
-  .info {
-    flex: 1;
-    padding: 40px;
-  }
-  
-  .info h1 {
-    font-size: 28px;
-    color: #1d3557;
-  }
-  
-  .age {
-    margin: 10px 0;
-    font-size: 18px;
-    color: #6c757d;
-  }
-  
-  .skills-list {
-    list-style-type: none;
-    margin-top: 20px;
-  }
-  
-  .skills-list li {
-    font-size: 18px;
-    margin-bottom: 10px;
-    padding-left: 20px;
-    position: relative;
-  }
-  
-  .skills-list li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: #1d3557;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(45deg, #9c8c8c, #719a9c, #333399);
+  color: #2c3e50;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.card {
+  background-color: white;
+  border-radius: 20px;
+  width: 400px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.top-bg {
+  background: linear-gradient(135deg, #719a9c, #333399);
+  height: 120px;
+}
+
+.profile-img-wrapper {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 5px solid white;
+  object-fit: cover;
+  background-color: #eee;
+}
+
+.profile-info {
+  margin-top: 70px;
+  padding: 20px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1d3557;
+  margin-bottom: 5px;
+}
+
+.location {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.profession, .age {
+  font-size: 16px;
+  color: #2c3e50;
+  margin: 5px 0;
+}
+
+.skills-list button{
+  background: linear-gradient(135deg, #719a9c, #333399);
+  width: 100px;
+  height: 30px;
+  border-style: none;
+  border-radius: 20px;
+  margin: 5px auto;
+  color: #eee;
+}
+
+

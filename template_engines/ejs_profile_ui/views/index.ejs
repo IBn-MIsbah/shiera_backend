@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= name %>'s Portfolio</title>
-    <link rel="stylesheet" href="/style/style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div class="profile">
-        <img src="/images/profile.png" alt="Profile Picture" class="profile-pic" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= name %>'s Profile</title>
+  <link rel="stylesheet" href="/style/style.css" />
+</head>
+<body>
+  <div class="hero-container">
+    <div class="card">
+      <div class="top-bg"></div>
+
+      <div class="profile-img-wrapper">
+        <img src="/images/profile.png" alt="Profile Picture" class="profile-img" />
       </div>
 
-      <div class="info">
-        <h1><%= name %></h1>
-        <p class="age"><%= age %></p>
-        <span class="profession"><%= profession %></span>
+      <div class="profile-info">
+        <h1 class="name"><%= name %></h1>
+        <p class="profession"><%= profession %></p>
+        <p class="age">Age: <%= age %></p>
 
-        <h2>Skills</h2>
+        <h2 class="skill-heading">Skills</h2>
         <ul class="skills-list">
           <% skills.forEach(skill => { %>
-            <li><%= skill %></li>
+            <button><%= skill %></button>
           <% }) %>
         </ul>
+
+      
       </div>
     </div>
-  </body>
+  </div>
+</body>
 </html>
