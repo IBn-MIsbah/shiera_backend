@@ -3,22 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Basic UI</title>
+    <title><%= name %>'s Portfolio</title>
     <link rel="stylesheet" href="/style/style.css" />
   </head>
   <body>
     <div class="container">
-      <header>
-        <h1 class="intro">Hello I'm <%= name %></h1>
-        <span class="profession"> <%=profession %> </span>
-        <span class="age"><%= age %></span>
-      </header>
-      <hr />
-      <h2 class="skills">Skills</h2>
-      <div class="skill-list">
-        <% skills.forEach(skill => { %>
-        <span class="skill"><%= skill%></span>
-        <% }) %>
+      <div class="profile">
+        <img src="/images/profile.png" alt="Profile Picture" class="profile-pic" />
+      </div>
+
+      <div class="info">
+        <h1><%= name %></h1>
+        <p class="age"><%= age %></p>
+        <span class="profession"><%= profession %></span>
+
+        <h2>Skills</h2>
+        <ul class="skills-list">
+          <% skills.forEach(skill => { %>
+            <li><%= skill %></li>
+          <% }) %>
+        </ul>
       </div>
     </div>
   </body>

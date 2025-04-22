@@ -1,47 +1,76 @@
-*{
-    list-style: none;
-}
-body{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(45deg, #9c8c8c, #719a9c, #333399);
+    color: #2c3e50;
     display: flex;
-    width: 100%;
-    height: 100dvh;
+    justify-content: center;
     align-items: center;
-    justify-content: center;
-    background-color: #f5f5f5;
-    color: #333;
-}
-
-.container{
-    max-width: 800px;
-    margin: 0 auto;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-header{
-    text-align: center;
-}
-h1{
-    margin: auto;
-    font-size: 2.5rem;
-}
-span{
-    font-size: 1rem;
-}
-h2{
-    text-align: center;
-}
-.skill-list {
+    height: 100vh;
+  }
+  
+  .container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-.skill {
-    background: #3498db;
-    color: white;
-    padding: 8px 15px;
+    flex-direction: row;
+    background: #ffffff;
     border-radius: 20px;
-    font-size: 0.9rem;
-}
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 800px;
+    width: 100%;
+  }
+  
+  .profile {
+    flex: 1;
+    background-color: #e6f0fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .profile-pic {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .info {
+    flex: 1;
+    padding: 40px;
+  }
+  
+  .info h1 {
+    font-size: 28px;
+    color: #1d3557;
+  }
+  
+  .age {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #6c757d;
+  }
+  
+  .skills-list {
+    list-style-type: none;
+    margin-top: 20px;
+  }
+  
+  .skills-list li {
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+  }
+  
+  .skills-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #1d3557;
+  }
+  
