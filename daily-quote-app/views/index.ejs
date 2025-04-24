@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz App</title>
+    <title>Daily quotes</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -16,8 +16,8 @@
   <body>
     <div class="container">
         <h1 class="header">Quote of the day</h1>
-        <h4 class="quote" id="quote-text"><%= quote %></h4>
-        <p class="author"><em>-- BY: <%= author %></em></p>
+        <h4 class="quote" id="quote-text"><%= quote.text %></h4>
+        <p class="author"><em>-- BY: <%= quote.author %></em></p>
         <hr />
         <div class="btn-container">
             <i class="fa-solid fa-copy fa-2x" id="copy-btn"></i>

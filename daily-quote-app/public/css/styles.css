@@ -12,8 +12,8 @@
     background: linear-gradient(58deg, #333, #a99999, #293b3f);
   }
   .container {
-    width: 65%;
-    height: 45dvh;
+    width: 420px;
+    height: 300px;
     background: linear-gradient(135deg, #666, #a7aaa7);
     padding: 20px;
     border-radius: 20px;
