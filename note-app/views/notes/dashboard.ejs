@@ -1,21 +1,56 @@
 <%- include('../partials/header') %>
-<div class="dashboard">
-  <h1>Your Notes</h1>
-  <a href="/notes/create" class="btn-new">+ New Note</a>
-  <% if (locals.notes) { %>
-
-  <div class="notes-grid">
-    <% notes.forEach(note => { %>
-    <div class="note-card">
-      <h3><%= note.title %></h3>
-      <p><%= note.content.substring(0, 100) %>...</p>
-      <div class="note-footer">
-        <span><%= note.createdAt.toDateString() %></span>
-        <a href="/notes/<%= note._id %>">View</a>
-      </div>
+<div class="app-container">
+  <aside class="notes-sidebar">
+    <h2 class="sidebar-title">Your Notes</h2>
+    <div class="notes-list">
+      <% if (notes && notes.length > 0) { %>
+        <% notes.forEach(note => { %>
+          <div class="note-item" data-id="<%= note._id %>">
+            <h3 class="note-item-title"><%= note.title %></h3>
+            <div class="note-item-actions">
+              <button class="btn-edit" data-id="<%= note._id %>">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-delete" data-id="<%= note._id %>">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="empty-notes">
+          <i class="fas fa-book-open"></i>
+          <p>No notes yet. Create one!</p>
+        </div>
+      <% } %>
     </div>
-    <% }); %>
-  </div>
-  <% } %>
+  </aside>
+
+  <main class="notes-main">
+    <div class="dashboard-header">
+      <h1>Welcome, <%= user.username %>!</h1>
+      <a href="/notes/create" class="btn btn-primary">
+        <i class="fas fa-plus"></i> New Note
+      </a>
+    </div>
+    
+    <% if (selectedNote) { %>
+      <div class="note-viewer">
+        <h2 class="note-title"><%= selectedNote.title %></h2>
+        <div class="note-content"><%= selectedNote.content %></div>
+        <div class="note-meta">
+          <span>Created: <%= selectedNote.createdAt.toDateString() %></span>
+          <a href="/notes/edit/<%= selectedNote._id %>" class="btn btn-edit">
+            Edit Note
+          </a>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="note-placeholder">
+        <i class="fas fa-sticky-note"></i>
+        <h3>Select a note or create a new one</h3>
+      </div>
+    <% } %>
+  </main>
 </div>
 <%- include('../partials/footer') %>
