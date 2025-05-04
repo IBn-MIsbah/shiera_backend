@@ -1,15 +1,53 @@
-<!-- <script>
-    const togglePassword = document.getElementById('togglePassword');
-    const password = document.getElementById('password');
+<script>
+  // Toggle password visibility
+document.querySelectorAll('.toggle-password').forEach(button => {
+  button.addEventListener('click', function() {
+    const input = this.previousElementSibling;
+    const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+    input.setAttribute('type', type);
+    this.classList.toggle('fa-eye');
+    this.classList.toggle('fa-eye-slash');
+  });
+});
 
-    togglePassword.addEventListener('click', function () {
-      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-      password.setAttribute('type', type);
-
-      this.classList.toggle('fa-eye');
-      this.classList.toggle('fa-eye-slash');
+// Note management
+document.addEventListener('DOMContentLoaded', () => {
+  // Note selection
+  document.querySelectorAll('.note-item').forEach(item => {
+    item.addEventListener('click', async (e) => {
+      if (e.target.closest('.btn-edit, .btn-delete')) return;
+      
+      const noteId = item.dataset.id;
+      const response = await fetch(`/notes/${noteId}`);
+      const note = await response.json();
+      
+      // Update the main view (you might want to use a frontend framework for this)
+      document.querySelector('.note-viewer').innerHTML = `
+        <h2 class="note-title">${note.title}</h2>
+        <div class="note-content">${note.content}</div>
+        <div class="note-meta">
+          <span>Created: ${new Date(note.createdAt).toDateString()}</span>
+          <a href="/notes/edit/${note._id}" class="btn btn-edit">
+            Edit Note
+          </a>
+        </div>
+      `;
     });
-  </script> -->
+  });
 
+  // Delete note
+  document.querySelectorAll('.btn-delete').forEach(button => {
+    button.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const noteId = button.dataset.id;
+      
+      if (confirm('Are you sure you want to delete this note?')) {
+        await fetch(`/notes/${noteId}`, { method: 'DELETE' });
+        window.location.reload();
+      }
+    });
+  });
+});
+</script>
 </body>
 </html>
