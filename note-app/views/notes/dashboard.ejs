@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+<div class="dashboard">
+  <h1>Your Notes</h1>
+  <a href="/notes/create" class="btn-new">+ New Note</a>
+  <% if (locals.notes) { %>
+
+  <div class="notes-grid">
+    <% notes.forEach(note => { %>
+    <div class="note-card">
+      <h3><%= note.title %></h3>
+      <p><%= note.content.substring(0, 100) %>...</p>
+      <div class="note-footer">
+        <span><%= note.createdAt.toDateString() %></span>
+        <a href="/notes/<%= note._id %>">View</a>
+      </div>
+    </div>
+    <% }); %>
+  </div>
+  <% } %>
+</div>
+<%- include('../partials/footer') %>

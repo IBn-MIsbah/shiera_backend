@@ -1,21 +1,51 @@
-import 'dotenv/config'
-import express from 'express'
-import bodyparser from 'body-parser';
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require('passport');
+const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 4000;
 
-app.use(express.static('public'));
-app.use(bodyparser.urlencoded({extended: true}));
+// 📦 Middleware: express + static
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// 🧠 MongoDB connection
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/notesApp')
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// 👤 User model
+const User = require('./models/user');
+
+// 🔑 Session config (Must be BEFORE passport)
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: process.env.NODE_ENV === 'production' }
+}));
+
+// 🔐 Passport setup (AFTER session + model)
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// 📄 Views
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-app.get('/', (req, res)=>{
-    res.render('auth/login')
-})
+// 🌐 Routes
+app.use('/', require('./routes/auth'));
+app.use('/notes', require('./routes/notes'));
 
-app.listen(port, (err)=>{
-    if(err){
-        console.error(err)
-    }
-    console.log(`Server active on http//:localhost:${port}`)
-})
+// 🚀 Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

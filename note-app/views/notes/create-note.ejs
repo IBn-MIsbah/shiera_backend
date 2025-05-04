@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create New Note | NoteApp</title>
+    <style>
+      /* Reusing your existing styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background: linear-gradient(to right, #4b5563, #2e2e2e);
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        z-index: 1000;
+      }
+
+      .navbar-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+      }
+
+      .navbar-logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .navbar-menu {
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar-profile {
+        color: #fff;
+        margin-right: 20px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      .navbar-logout {
+        padding: 8px 16px;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #e74c3c;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .navbar-logout:hover {
+        background-color: #c0392b;
+      }
+
+      /* Create Note Specific Styles */
+      .create-note-container {
+        margin-top: 80px;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      .create-note-form {
+        width: 100%;
+        max-width: 800px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .create-note-form h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: #2e2e2e;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #2e2e2e;
+        font-weight: 500;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: inherit;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: #4b5563;
+      }
+
+      #title {
+        font-family: "Times New Roman", Times, serif;
+        font-weight: 700;
+        font-size: xx-large;
+      }
+
+      #content {
+        min-height: 300px;
+        resize: vertical;
+      }
+
+      .btn-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.8rem 1.5rem;
+        border-radius: 30px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-save {
+        background: #4b5563;
+        color: white;
+        border: none;
+      }
+
+      .btn-save:hover {
+        background: #2e2e2e;
+      }
+
+      .btn-cancel {
+        background: transparent;
+        color: #4b5563;
+        border: 1px solid #4b5563;
+      }
+
+      .btn-cancel:hover {
+        background: rgba(75, 85, 99, 0.1);
+      }
+
+      /* Responsive Design */
+      @media screen and (max-width: 768px) {
+        .create-note-container {
+          padding: 1rem;
+        }
+        
+        .create-note-form {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-logo">NoteApp</div>
+        <div class="navbar-menu">
+          <span class="navbar-profile">👤 <%#username %></span>
+          <button class="navbar-logout"><a href="/logout" style="all: unset;">Logout</a></button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="create-note-container">
+      <form class="create-note-form" action="/notes" method="POST">
+        <h1>Create New Note</h1>
+        
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="form-control"
+            placeholder="Note title"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea
+            id="content"
+            name="content"
+            class="form-control"
+            placeholder="Write your note here..."
+            required
+          ></textarea>
+        </div>
+
+        <div class="btn-container">
+          <a href="/dashboard" class="btn btn-cancel">Cancel</a>
+          <button type="submit" class="btn btn-save">Save Note</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
