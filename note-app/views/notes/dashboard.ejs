@@ -3,7 +3,7 @@
   <aside class="notes-sidebar">
     <h2 class="sidebar-title">Your Notes</h2>
     <div class="notes-list">
-      <% if (notes && notes.length > 0) { %>
+      <% if (locals.notes && notes.length > 0) { %>
         <% notes.forEach(note => { %>
           <div class="note-item" data-id="<%= note._id %>">
             <h3 class="note-item-title"><%= note.title %></h3>
@@ -34,10 +34,10 @@
       </a>
     </div>
     
-    <% if (selectedNote) { %>
+    <% if (locals.selectedNote) { %>
       <div class="note-viewer">
-        <h2 class="note-title"><%= selectedNote.title %></h2>
-        <div class="note-content"><%= selectedNote.content %></div>
+        <h2 class="note-title"><%= selectedNote.title || "title" %></h2>
+        <div class="note-content"><%= selectedNote.content || "content" %></div>
         <div class="note-meta">
           <span>Created: <%= selectedNote.createdAt.toDateString() %></span>
           <a href="/notes/edit/<%= selectedNote._id %>" class="btn btn-edit">

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create New Note | NoteApp</title>
     <style>
-      /* Reusing your existing styles */
+      /* Global Reset */
       * {
         margin: 0;
         padding: 0;
@@ -17,89 +17,89 @@
         display: flex;
         flex-direction: column;
         height: 100vh;
-        background: linear-gradient(to right, #4b5563, #2e2e2e);
+        background: linear-gradient(
+          to right,
+          var(--secondary-text),
+          var(--primary-text)
+        );
       }
 
+      /* Navbar */
       .navbar {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        height: 60px;
+        height: 65px;
         background: rgba(255, 255, 255, 0.2);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(10px);
+        padding: 0 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(12px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         z-index: 1000;
       }
 
-      .navbar-container {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        align-items: center;
-      }
-
       .navbar-logo {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         font-weight: bold;
-        color: #fff;
+        color: var(--white);
       }
 
       .navbar-menu {
         display: flex;
         align-items: center;
+        gap: 1rem;
       }
 
       .navbar-profile {
-        color: #fff;
-        margin-right: 20px;
+        color: var(--white);
         cursor: pointer;
         font-size: 1rem;
       }
 
       .navbar-logout {
-        padding: 8px 16px;
+        padding: 8px 18px;
         font-size: 1rem;
-        color: #fff;
-        background-color: #e74c3c;
+        color: var(--white);
+        background-color: var(--error);
         border: none;
-        border-radius: 5px;
+        border-radius: 6px;
         cursor: pointer;
         transition: background-color 0.3s ease;
       }
 
       .navbar-logout:hover {
-        background-color: #c0392b;
+        background-color: #b91c1c;
       }
 
-      /* Create Note Specific Styles */
+      /* Note Creation Section */
       .create-note-container {
-        margin-top: 80px;
-        padding: 2rem;
+        margin-top: 90px;
+        padding: 2.5rem;
         display: flex;
         justify-content: center;
       }
 
       .create-note-form {
         width: 100%;
-        max-width: 800px;
-        background: rgba(255, 255, 255, 0.8);
+        max-width: 750px;
+        background: var(--white);
         padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
       }
 
       .create-note-form h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
         margin-bottom: 1.5rem;
-        color: #2e2e2e;
+        color: var(--primary-text);
+        text-align: center;
       }
 
+      /* Form Styling */
       .form-group {
         margin-bottom: 1.5rem;
       }
@@ -107,78 +107,96 @@
       .form-group label {
         display: block;
         margin-bottom: 0.5rem;
-        color: #2e2e2e;
+        color: var(--secondary-text);
         font-weight: 500;
       }
 
       .form-control {
         width: 100%;
-        padding: 0.8rem;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+        padding: 0.9rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
         font-family: inherit;
         font-size: 1rem;
         transition: border-color 0.3s ease;
+        background-color: var(--white);
       }
 
       .form-control:focus {
         outline: none;
-        border-color: #4b5563;
+        border-color: var(--accent);
       }
 
+      /* Title Input */
       #title {
-        font-family: "Times New Roman", Times, serif;
+        font-family: "Times New Roman", serif;
         font-weight: 700;
         font-size: xx-large;
       }
 
+      /* Content Input */
       #content {
-        min-height: 300px;
+        min-height: 320px;
         resize: vertical;
       }
 
+      /* Button Section */
       .btn-container {
         display: flex;
         justify-content: flex-end;
         gap: 1rem;
+        margin-top: 1.5rem;
       }
 
       .btn {
-        padding: 0.8rem 1.5rem;
+        padding: 0.9rem 1.8rem;
         border-radius: 30px;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.3s ease;
+        font-size: 1rem;
       }
 
       .btn-save {
-        background: #4b5563;
-        color: white;
+        background: var(--accent);
+        color: var(--white);
         border: none;
       }
 
       .btn-save:hover {
-        background: #2e2e2e;
+        background: #059669;
       }
 
       .btn-cancel {
         background: transparent;
-        color: #4b5563;
-        border: 1px solid #4b5563;
+        color: var(--accent);
+        border: 1px solid var(--accent);
       }
 
       .btn-cancel:hover {
-        background: rgba(75, 85, 99, 0.1);
+        background: rgba(59, 130, 246, 0.1);
       }
 
-      /* Responsive Design */
+      /* Responsive Enhancements */
       @media screen and (max-width: 768px) {
         .create-note-container {
           padding: 1rem;
         }
-        
+
         .create-note-form {
           padding: 1.5rem;
+        }
+
+        .navbar {
+          padding: 0 15px;
+        }
+
+        .navbar-logo {
+          font-size: 1.5rem;
+        }
+
+        .btn-container {
+          justify-content: center;
         }
       }
     </style>
@@ -189,7 +207,9 @@
         <div class="navbar-logo">NoteApp</div>
         <div class="navbar-menu">
           <span class="navbar-profile">👤 <%#username %></span>
-          <button class="navbar-logout"><a href="/logout" style="all: unset;">Logout</a></button>
+          <button class="navbar-logout">
+            <a href="/logout" style="all: unset">Logout</a>
+          </button>
         </div>
       </div>
     </nav>
@@ -197,7 +217,7 @@
     <div class="create-note-container">
       <form class="create-note-form" action="/notes" method="POST">
         <h1>Create New Note</h1>
-        
+
         <div class="form-group">
           <label for="title">Title</label>
           <input

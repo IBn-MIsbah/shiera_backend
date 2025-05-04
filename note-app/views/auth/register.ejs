@@ -1,25 +1,25 @@
 <%- include('../partials/header.ejs') %>
 </head>
 
-<body id="signup-form-body">
+<body id="signup-form-body" class="auth-container">
   <div class="form-container">
     <h2>Sign up</h2>
     <form action="/register" method="post">
       <div class="personal-info">
 
-        <div class="first-name">
+        <div class="first-name form-element">
           <label for="username">Name</label><br />
           <input type="text" name="username" id="username" required />
         </div>
         <br>
 
-        <div class="email-input">
+        <div class="email-input form-element">
           <label for="email">Email</label><br />
           <input type="email" name="email" id="email" required />
         </div>
         <br>
 
-        <div class="pwd">
+        <div class="pwd form-element">
           <label for="password">Password</label><br />
           <div class="pwd-wrapper">
             <input type="password" name="password" id="pwd" required />
@@ -28,7 +28,7 @@
         </div>
         <br>
 
-        <button type="submit" class="btn signup-btn">Sign up</button>
+        <button type="submit" class="btn signup-btn btn-primary" style="width: 80%;">Sign up</button>
         <p>Already have an account? <a href="/login">Log in</a></p>
       </div>
     </form>
