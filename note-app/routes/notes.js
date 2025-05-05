@@ -1,65 +1,119 @@
-const express = require('express');
+const express = require("express");
+const flash = require("express-flash");
 const router = express.Router();
-const Note = require('../models/note');
-const { isLoggedIn } = require('../middleware/authMiddleware');
+const Note = require("../models/note");
+const User = require("../models/user");
+const { isLoggedIn } = require("../middleware/authMiddleware");
 
-// Dashboard - Show all notes
-router.get('/dashboard', isLoggedIn, async (req, res) => {
+
+router.get("/create", isLoggedIn, async (req, res) => {
   try {
+    if (!req.user || !req.user._id) {
+      return res.status(401).send("Unauthorized: User not found");
+    }
     const user = await User.findById(req.user._id);
-    const notes = await Note.find({ user: req.user._id });
-    
-    res.render('dashboard', {
-      title: 'Dashboard',
-      username: user.username, // Direct username access
-      notes: notes
-    });
+    if (!user) {
+      return res.status(404).send("User not found in database");
+    }
+    console.log(user);
+    res.render("notes/create-note", { user });
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Server Error');
+    console.error(err.stack);
+    console.error(err.message);
   }
 });
 
-// Create new note
-router.get('/create', isLoggedIn, async(req, res) => {
-
-  // const user = await User.findById(req.user._id);
-  res.render('notes/create-note', /* {
-    username: user.username
-  } */);
-});
-
-router.post('/create', isLoggedIn, async (req, res) => {
+router.post("/create", isLoggedIn, async (req, res) => {
   try {
     const { title, content } = req.body;
+
+    if (!title?.trim() || !content?.trim()) {
+      req.flash("error", "Title and content are required");
+      return res.redirect("/notes/create");
+    }
     const newNote = new Note({
-      title,
-      content,
-      user: req.user._id
+      title: title.trim(),
+      content: content.trim(),
+      user: req.user._id,
     });
+
     await newNote.save();
-    res.redirect('/notes/dashboard');
+
+    await User.findByIdAndUpdate(req.user._id, {
+      $push: { notes: newNote._id },
+    });
+
+    req.flash("success", "Note created successfully!");
+    res.redirect("/dashboard"); // Better to redirect to dashboard
   } catch (err) {
-    console.error(err);
-    res.redirect('/notes/create');
+    console.error(err.message);
+    req.flash("error", "Failed to create note");
+    res.redirect("/notes/create");
   }
 });
 
-// Add these to your notes routes
-router.get('/:id', async (req, res) => {
-  const note = await Note.findById(req.params.id);
-  res.json(note);
+router.get("/edit/:id", isLoggedIn, async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) return res.status(404).send("Note not found");
+
+    res.render('notes/create-note', {
+      note,
+      user: req.user,
+      messages: {
+        err: "",
+        success: ""
+      }
+    })
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 });
 
-router.put('/:id', async (req, res) => {
-  const { title, content } = req.body;
-  await Note.findByIdAndUpdate(req.params.id, { title, content });
-  res.redirect('/dashboard');
+router.post("/update/:id", isLoggedIn, async (req, res) => {
+  try {
+    const { title, content } = req.body;
+
+    if (!title?.trim() || !content?.trim()) {
+      return res.status(400).json({ error: "Title and content required" });
+    }
+
+    const updatedNote = await Note.findOneAndUpdate(
+      { _id: req.params.id, user: req.user._id },
+      { title: title.trim(), content: content.trim(), updatedAt: Date.now() },
+      { new: true }
+    );
+
+    if (!updatedNote) {
+      return res.status(404).json({ error: "Note not found" });
+    }
+
+    res.redirect('/dashboard')
+  } catch (err) {
+    res.status(500).json({ error: "Server error updating note" });
+  }
 });
 
-router.delete('/:id', async (req, res) => {
-  await Note.findByIdAndDelete(req.params.id);
-  res.redirect('/dashboard');
+router.delete("/:id", isLoggedIn, async (req, res) => {
+  try {
+    const note = await Note.findOneAndDelete({
+      _id: req.params.id,
+      user: req.user._id,
+    });
+
+    if (!note) {
+      return res.status(404).json({ error: "Note not found" });
+    }
+
+    await User.findByIdAndUpdate(req.user._id, {
+      $pull: { notes: req.params.id },
+    });
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: "Server error deleting note" });
+  }
 });
 
 module.exports = router;
