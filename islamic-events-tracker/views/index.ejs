@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="icon" href="/favicon/shieraicon.jpg" type="image/png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Public+Sans:wght@400;500;700;900"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body>
+    <div class="container mx-auto px-4 py-8">
+      <!-- Islamic Events Section -->
+      <h1 class="text-center mb-8">
+        <i class="fas fa-mosque mr-2"></i>Islamic Events
+      </h1>
+
+      <% if (events && events.length > 0) { %>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
+        <% events.forEach(event => { %>
+        <div class="event-card shadow p-6">
+          <div class="flex items-center gap-3 mb-2">
+            <i class="fas fa-calendar-star text-blue-500"></i>
+            <h2><%= event.name %></h2>
+          </div>
+          <div class="text-gray-400 mb-1">
+            <i class="far fa-calendar-alt mr-2"></i>
+            <strong>Gregorian:</strong> <%= event.gregorian_date %>
+          </div>
+          <div class="text-gray-400 mb-4">
+            <i class="fas fa-moon mr-2"></i>
+            <strong>Hijri:</strong> <%= event.hijri_date %>
+          </div>
+          <div class="font-medium">
+            <% if (event.is_past) { %>
+            <span class="event-passed">
+              <i class="far fa-clock mr-1"></i> Event passed
+            </span>
+            <% } else { %>
+            <span class="days-remaining">
+              <i class="fas fa-hourglass-half mr-1"></i> <%=
+              event.days_remaining %> days remaining
+            </span>
+            <% } %>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+      <% } else { %>
+      <div class="text-center py-8">
+        <i class="far fa-calendar-times text-4xl text-gray-400 mb-2"></i>
+        <p class="text-gray-400">No upcoming events found</p>
+      </div>
+      <% } %>
+
+      <!-- Prayer Times Section -->
+      <div class="bg-gray-900 rounded-lg shadow-md p-6">
+        <h2 class="text-center mb-6">
+          <i class="fas fa-praying-hands mr-2"></i>Prayer Times
+        </h2>
+
+        <h3 class="text-center mb-2">
+          <i class="far fa-calendar-alt mr-2"></i>
+          <%= gregorianDate.weekday %>, <%= gregorianDate.month %> <%=
+          gregorianDate.day %>, <%= gregorianDate.year %>
+        </h3>
+        <h4 class="text-center mb-4">
+          <i class="fas fa-moon mr-2"></i>
+          <%= hijriDate.weekday %>, <%= hijriDate.month %> <%= hijriDate.day %>,
+          <%= hijriDate.year %> (Hijri)
+        </h4>
+        <p class="text-gray-400 mb-6 text-center">
+          <i class="fas fa-map-marker-alt mr-2"></i><%= location %>
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <% Object.entries(prayerTimes).forEach(([name, time]) => { %>
+          <div class="prayer-time-card p-4 rounded-lg text-center">
+            <% if (name === 'Fajr') { %>
+            <i class="fas fa-sun text-yellow-300 text-xl mb-2"></i>
+            <% } else if (name === 'Dhuhr') { %>
+            <i class="fas fa-sun text-orange-400 text-xl mb-2"></i>
+            <% } else if (name === 'Asr') { %>
+            <i class="fas fa-cloud-sun text-amber-500 text-xl mb-2"></i>
+            <% } else if (name === 'Maghrib') { %>
+            <i class="fas fa-sunset text-red-400 text-xl mb-2"></i>
+            <% } else if (name === 'Isha') { %>
+            <i class="fas fa-moon text-indigo-300 text-xl mb-2"></i>
+            <% } %>
+            <h4><%= name %></h4>
+            <p class="text-2xl"><%= time %></p>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="mt-12 py-6 border-t border-gray-800">
+        <footer class="text-center text-gray-400 text-sm">
+          <i class="fas fa-code"></i> &copy; <%= new Date().getFullYear() %>
+          <span class="text-blue-500 font-medium">Shiera_Developers</span>
+          <span class="mx-2">|</span>
+          <i class="fas fa-globe"></i> <span>All Rights Reserved</span>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
