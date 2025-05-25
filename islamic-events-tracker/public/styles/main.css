@@ -1,0 +1,95 @@
+body {
+  font-family: "Public Sans", "Noto Sans", sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #ffffff;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.event-card {
+  background-color: #1a1a1a;
+  border-radius: 0.75rem;
+  transition: transform 0.2s;
+}
+
+.event-card:hover {
+  transform: translateY(-2px);
+}
+
+.prayer-time-card {
+  background-color: #1a1a1a;
+  border-radius: 0.75rem;
+  transition: all 0.2s;
+}
+
+.prayer-time-card:hover {
+  background-color: #252525;
+}
+
+.prayer-time-card h4 {
+  color: #3b82f6;
+}
+
+.prayer-time-card p {
+  font-weight: 700;
+}
+
+.days-remaining {
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+.event-passed {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid-cols-3,
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
