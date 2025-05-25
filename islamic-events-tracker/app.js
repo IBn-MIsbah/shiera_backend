@@ -73,7 +73,7 @@ app.get("/", async (req, res) => {
 
     // --- FINAL COMBINED VIEW RENDERING ---
     res.render("index", {
-      title: "Islamic Dashboard",
+      title: "Islamic Events",
       gregorianDate: {
         date: gregorianData.date,
         day: gregorianData.day,
