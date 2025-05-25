@@ -1,44 +1,39 @@
 {
     "events": [
         {
-            "name": "Hajj 2025",
-            "hijri_date": "25 Dhul Qadah 1446",
-            "gregorian_date": "June 3, 2025"
+            "name": "Hajj 2025 (Day of Arafah)",
+            "hijri_date": "9 Dhul Hijjah 1446",
+            "gregorian_date": "June 4, 2025",
+        },
+        {
+            "name": "Eid al-Adha",
+            "hijri_date": "10 Dhul Hijjah 1446",
+            "gregorian_date": "June 5, 2025",
         },
         {
             "name": "Islamic New Year",
             "hijri_date": "1 Muharram 1447",
-            "gregorian_date": "July 7, 2025"
+            "gregorian_date": "June 26, 2025",
         },
         {
             "name": "Ashura",
             "hijri_date": "10 Muharram 1447",
-            "gregorian_date": "July 16, 2025"
-        },
-        {
-            "name": "Prophet's Birthday",
-            "hijri_date": "12 Rabi al-Awwal 1447",
-            "gregorian_date": "August 17, 2025"
+            "gregorian_date": "July 5, 2025",
         },
         {
             "name": "Ramadan Begins",
             "hijri_date": "1 Ramadan 1447",
-            "gregorian_date": "March 11, 2026"
+            "gregorian_date": "March 11, 2026",
         },
         {
             "name": "Laylatul Qadr",
             "hijri_date": "27 Ramadan 1447",
-            "gregorian_date": "April 6, 2026"
+            "gregorian_date": "April 6, 2026",
         },
         {
             "name": "Eid al-Fitr",
             "hijri_date": "1 Shawwal 1447",
-            "gregorian_date": "April 10, 2026"
-        },
-        {
-            "name": "Eid al-Adha",
-            "hijri_date": "10 Dhul Hijjah 1447",
-            "gregorian_date": "June 28, 2026"
+            "gregorian_date": "April 10, 2026",
         }
     ]
 }
