@@ -4,22 +4,25 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const port = 3000;
+// Initialize express app
 const app = express();
 
-// Get __dirname equivalent in ES modules
+// Get directory paths
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.urlencoded({ extended: true }));
+// Configure view engine and paths
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
 
-// Helper function to format time (remove timezone info)
+// Helper function to format time
 function formatTime(timeString) {
-  return timeString.split(" ")[0]; // Removes the timezone part (e.g., "(EAT)")
+  return timeString.split(" ")[0];
 }
 
+// Main route
 app.get("/", async (req, res) => {
   try {
     // --- PRAYER TIMES FETCHING ---
@@ -34,75 +37,46 @@ app.get("/", async (req, res) => {
     const data = response.data;
     const todayData = data.data[day - 1];
 
-    const gregorianData = todayData.date.gregorian;
-    const hijriData = todayData.date.hijri;
-    const timings = todayData.timings;
-
     const prayerTimes = {
-      Fajr: formatTime(timings.Fajr),
-      Sunrise: formatTime(timings.Sunrise),
-      Dhuhr: formatTime(timings.Dhuhr),
-      Asr: formatTime(timings.Asr),
-      Maghrib: formatTime(timings.Maghrib),
-      Isha: formatTime(timings.Isha),
+      Fajr: formatTime(todayData.timings.Fajr),
+      Sunrise: formatTime(todayData.timings.Sunrise),
+      Dhuhr: formatTime(todayData.timings.Dhuhr),
+      Asr: formatTime(todayData.timings.Asr),
+      Maghrib: formatTime(todayData.timings.Maghrib),
+      Isha: formatTime(todayData.timings.Isha),
     };
 
     // --- EVENTS LOADING ---
     const eventsPath = path.join(__dirname, "events.json");
-    if (!fs.existsSync(eventsPath)) {
-      throw new Error("Events data file not found");
-    }
-
     const eventsData = JSON.parse(fs.readFileSync(eventsPath, "utf8"));
 
-    if (!eventsData.events || !Array.isArray(eventsData.events)) {
-      throw new Error("Invalid events data format");
-    }
+    const eventsWithCountdown = eventsData.events
+      .map((event) => {
+        const daysRemaining = Math.ceil(
+          (new Date(event.gregorian_date) - new Date()) / (1000 * 60 * 60 * 24)
+        );
+        return {
+          ...event,
+          days_remaining: Math.max(0, daysRemaining),
+          is_past: daysRemaining < 0,
+        };
+      })
+      .sort((a, b) => a.days_remaining - b.days_remaining);
 
-    const eventsWithCountdown = eventsData.events.map((event) => {
-      const eventDate = new Date(event.gregorian_date);
-      const today = new Date();
-      const timeDiff = eventDate - today;
-      const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-      return {
-        ...event,
-        days_remaining: daysRemaining >= 0 ? daysRemaining : 0,
-        is_past: daysRemaining < 0,
-      };
-    });
-
-    // --- FINAL COMBINED VIEW RENDERING ---
+    // --- RENDER VIEW ---
     res.render("index", {
       title: "Islamic Events",
-      gregorianDate: {
-        date: gregorianData.date,
-        day: gregorianData.day,
-        weekday: gregorianData.weekday.en,
-        month: gregorianData.month.en,
-        year: gregorianData.year,
-      },
-      hijriDate: {
-        date: hijriData.date,
-        day: hijriData.day,
-        weekday: hijriData.weekday.en,
-        month: hijriData.month.en,
-        year: hijriData.year,
-      },
-      prayerTimes: prayerTimes,
+      gregorianDate: todayData.date.gregorian,
+      hijriDate: todayData.date.hijri,
+      prayerTimes,
       location: "Addis Ababa, Ethiopia",
-      events: eventsWithCountdown.sort(
-        (a, b) => a.days_remaining - b.days_remaining
-      ),
+      events: eventsWithCountdown,
     });
   } catch (err) {
-    console.error("Error rendering index:", err.message);
-    res.status(500).render("error", {
-      message: err.message || "Something went wrong",
-      error: process.env.NODE_ENV === "development" ? err : {},
-    });
+    console.error("Error:", err);
+    res.status(500).send("Internal Server Error");
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server active on http://localhost:${port}/`);
-});
+// Export for Vercel (instead of app.listen)
+export default app;
